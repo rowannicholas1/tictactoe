@@ -35,12 +35,12 @@ BOARD_WIDTH = 65
 BOARD_LENGTH = 200
 
 WIDTH = 150
-c1 = WIDTH/2
-c2 = WIDTH*3/2
-c3 = WIDTH*5/2
-r1 = -WIDTH/2
-r2 = -WIDTH*3/2
-r3 = -WIDTH*5/2
+C1 = WIDTH/2
+C2 = WIDTH*3/2
+C3 = WIDTH*5/2
+R1 = -WIDTH/2
+R2 = -WIDTH*3/2
+R3 = -WIDTH*5/2
 
 
 def board_move():
@@ -76,16 +76,19 @@ wn.update()
 
 
 def draw_x():
+    '''draws an x'''
     pencil.circle(60)  # placeholder until i find a good way to draw an x
 
 
 def draw_o():
+    '''draws an o'''
     pencil.circle(20)
 
 
 def key_1():
+    '''exectues a draw on key press'''
     wn.tracer(True)
-    pencil.goto(c1, r1)
+    pencil.goto(C1, R1)
     pencil.pendown()
     if PLAYER_LETTER == 1:
         draw_x()
