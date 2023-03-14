@@ -30,6 +30,11 @@ board.pensize(5)
 board.setheading(90)
 board.penup()
 
+PENCIL_IMAGE = "~/Documents/github/tictactoe/pencil.gif"
+wn.addshape(PENCIL_IMAGE)
+pencil = trtl.Turtle(shape=PENCIL_IMAGE)
+pencil.shape(PENCIL_IMAGE)
+
 BOARD_WIDTH = 65
 BOARD_LENGTH = 200
 
