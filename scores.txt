@@ -1,3 +1,2 @@
 Computer,50
 Alex,12
-Rowan,2
