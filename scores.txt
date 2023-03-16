@@ -1,2 +1,2 @@
-Computer,50
-Alex,12
+Computer,56
+Alex,19

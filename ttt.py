@@ -1,16 +1,15 @@
-'''main.py'''
+'''ttt.py'''
 import turtle as trtl
 import random as rand
 
-
 wn = trtl.Screen()
-wn.setup(width=1.0, height=1.0)
+wn.setup(width=0.5, height=0.8)
 wn.tracer(False)
-SCORES_FILE = "~/Documents/github/tictactoe/scores.txt"
-PENCIL_IMAGE = "~/Documents/github/tictactoe/pencil.gif"
+
+SCORES_FILE = "scores.txt"
+PENCIL_IMAGE = "pencil.gif"
 names = []
 scores = []
-
 
 drawer = trtl.Turtle()
 drawer.ht()
@@ -18,24 +17,32 @@ WIDTH = 150
 INDEX = 0
 numlist = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 OFFSET = 180
+X_ANGLE = 45
+X_LENGTH = 27
+X_SQUARE_1 = X_LENGTH ^ 2
+
 drawer.penup()
 drawer.goto(-OFFSET, OFFSET)
 drawer.pendown()
-
 
 scorer = trtl.Turtle()
 scorer.ht()
 scorer.penup()
 
-
+writer = trtl.Turtle()
+writer.ht()
+writer.penup()
+writer.goto(-OFFSET, OFFSET)
+writer.goto(writer.xcor()+WIDTH*1.5, writer.ycor()-WIDTH*3.5)
 x1 = drawer.xcor()
-# left to right, top to bottom
+
 C1 = WIDTH/2-OFFSET
 C2 = WIDTH*3/2-OFFSET
 C3 = WIDTH*5/2-OFFSET
 R1 = -WIDTH/2+OFFSET
 R2 = -WIDTH*3/2+OFFSET
 R3 = -WIDTH*5/2+OFFSET
+# defined functions
 
 
 def board():
@@ -113,7 +120,7 @@ def get_scores():
     file2.close()
 
 
-def check_player(ind):
+def check_player(ind):  # checks who is playing that turn and then draws their corresponding shape
     if PLAYER_TURN == 1:
         numlist[ind] = PLAYER_LETTER
         draw_shape(PLAYER_LETTER)
@@ -165,7 +172,6 @@ def check(number):
 def check_and_send(number):
     def send():
         global PLAYER_TURN
-        wn.tracer(True)
         if PLAYER_TURN == 1:
             check(number)
         elif PLAYER_TURN == 0:
@@ -177,58 +183,120 @@ def check_and_send(number):
             ind1 = rand.randint(0, len(numlist2) - 1)
             num = numlist2[ind1]
             check(num)
-
         pencil.goto(pencil_default)
         check_win()
         if PLAYER_TURN == 0:
             PLAYER_TURN = 1
         else:
             PLAYER_TURN = 0
-
     return send
 
 
 def check_win():
+    writer.clear()
+    pencil.pensize(6)
+    pencil.pencolor("black")
     if PLAYER_TURN == 0:
-        win_msg = "Computer wins"
+        writer.write("Player's move", move=False, align="center",
+                     font=('comic sans', 15, 'bold'))
+        winn_msg = "Computer wins"
     else:
         win_msg = "Player wins"
-    # preset winning game scenarios
+        writer.write("Computer's move", move=False, align="center",
+                     font=('comic sans', 15, 'bold'))
     if numlist[0] == numlist[1] == numlist[2]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R1)
+        pencil.pendown()
+        pencil.goto(C3, R1)
         update_scores(PLAYER_TURN)
     elif numlist[3] == numlist[4] == numlist[5]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R2)
+        pencil.pendown()
+        pencil.goto(C3, R2)
         update_scores(PLAYER_TURN)
     elif numlist[6] == numlist[7] == numlist[8]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R3)
+        pencil.pendown()
+        pencil.goto(C3, R3)
         update_scores(PLAYER_TURN)
     elif numlist[0] == numlist[3] == numlist[6]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R1)
+        pencil.pendown()
+        pencil.goto(C1, R3)
         update_scores(PLAYER_TURN)
     elif numlist[1] == numlist[4] == numlist[7]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C2, R1)
+        pencil.pendown()
+        pencil.goto(C2, R3)
         update_scores(PLAYER_TURN)
     elif numlist[2] == numlist[5] == numlist[8]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C3, R1)
+        pencil.pendown()
+        pencil.goto(C3, R3)
         update_scores(PLAYER_TURN)
     elif numlist[0] == numlist[4] == numlist[8]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R1)
+        pencil.pendown()
+        pencil.goto(C3, R3)
         update_scores(PLAYER_TURN)
     elif numlist[6] == numlist[4] == numlist[2]:
-        print(win_msg)
+        writer.clear()
+        writer.write(win_msg, move=False, align="center",
+                     font=('comic sans', 20, 'bold'))
+        pencil.goto(C1, R3)
+        pencil.pendown()
+        pencil.goto(C3, R1)
         update_scores(PLAYER_TURN)
+    pencil.penup()
+    pencil.goto(pencil_default)
 
 
 def draw_shape(LETTER):
-    '''draws a shape'''
-    pencil.pendown()
+    pencil.pensize(4)
+    # x letter drawing
     if LETTER == "x":
-        # placeholder until i find a good way to draw an x
-        pencil.circle(20, 180, 4)
+        pencil.pencolor("red")
+        pencil.setheading(X_ANGLE)
+        pencil.forward(X_LENGTH)
+        pencil.pendown()
+        pencil.setheading(X_ANGLE + 180)
+        pencil.forward(X_LENGTH * 2)
+        wn.tracer(False)
+        pencil.backward(X_LENGTH)
+        pencil.setheading(-X_ANGLE)
+        pencil.backward(X_LENGTH)
+        wn.tracer(True)
+        pencil.forward(X_LENGTH * 2)
+        pencil.penup()
+    # o letter drawing
     if LETTER == "o":
-        pencil.circle(20)
-    pencil.penup()
+        pencil.goto(pencil.xcor(), pencil.ycor()-WIDTH/6)
+        pencil.pendown()
+        pencil.pencolor("blue")
+        pencil.circle(25)
+        pencil.penup()
+        pencil.goto(pencil.xcor(), pencil.ycor()+WIDTH/6)
     pencil.setheading(0)
 
 
@@ -236,41 +304,44 @@ board()
 get_scores()
 draw_scores()
 
+wn.tracer(True)
 
-# pencil
 wn.addshape(PENCIL_IMAGE)
 pencil = trtl.Turtle(shape=PENCIL_IMAGE)
-pencil.speed(5)
+pencil.speed(10)
 pencil.penup()
 pencil.ht()
 pencil.shape(PENCIL_IMAGE)
-pencil_default = (300, 0)
+pencil_default = (-OFFSET+WIDTH*3.5, OFFSET-WIDTH*1.5)
 pencil.goto(pencil_default)
 pencil.st()
 wn.update()
 
-
 go_first = rand.randint(0, 1)
 if go_first == 0:
-    PLAYER_TURN = 0  # not players turn
+    PLAYER_TURN = 0
+    writer.write("Computer goes first, press any number 1-9",
+                 move=False, align="center", font=('comic sans', 15, 'bold'))
 if go_first == 1:
-    PLAYER_TURN = 1  # players turn
-
+    PLAYER_TURN = 1
+    writer.write("Player goes first, press a number 1-9", move=False,
+                 align="center", font=('comic sans', 15, 'bold'))
 
 x_o = rand.randint(0, 1)
+writer.goto(writer.xcor(), writer.ycor()-WIDTH/5)
 if x_o == 0:
-    # print("player will be x, computer will be x")
     PLAYER_LETTER = "x"
     COMPUTER_LETTER = "o"
+    writer.write("Player will be 'x', Computer will be 'o'",
+                 move=False, align="center", font=('comic sans', 15, 'bold'))
 if x_o == 1:
-    # print("player will be o, computer will be o")
     PLAYER_LETTER = "o"
     COMPUTER_LETTER = "x"
-
-
+    writer.write("Player will be 'o', Computer will be 'x'",
+                 move=False, align="center", font=('comic sans', 15, 'bold'))
+writer.goto(writer.xcor(), writer.ycor()+WIDTH/5)
 for number in numlist:
     wn.onkeypress(check_and_send(number), number)
-
 
 wn.listen()
 wn.mainloop()
