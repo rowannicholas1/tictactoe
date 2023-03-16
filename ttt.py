@@ -42,7 +42,6 @@ C3 = WIDTH*5/2-OFFSET
 R1 = -WIDTH/2+OFFSET
 R2 = -WIDTH*3/2+OFFSET
 R3 = -WIDTH*5/2+OFFSET
-# defined functions
 
 
 def board():
@@ -274,7 +273,6 @@ def check_win():
 
 def draw_shape(LETTER):
     pencil.pensize(4)
-    # x letter drawing
     if LETTER == "x":
         pencil.pencolor("red")
         pencil.setheading(X_ANGLE)
