@@ -198,7 +198,7 @@ def check_win():
     if PLAYER_TURN == 0:
         writer.write("Player's move", move=False, align="center",
                      font=('comic sans', 15, 'bold'))
-        winn_msg = "Computer wins"
+        win_msg = "Computer wins"
     else:
         win_msg = "Player wins"
         writer.write("Computer's move", move=False, align="center",
