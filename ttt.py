@@ -45,6 +45,7 @@ R3 = -WIDTH*5/2+OFFSET
 
 
 def board():
+    '''draws board'''
     for i in range(3):
         tiles()
     wn.update()
@@ -52,6 +53,7 @@ def board():
 
 
 def tiles():
+    '''draws the tiles'''
     for i in range(3):
         square()
         drawer.forward(WIDTH)
@@ -61,6 +63,7 @@ def tiles():
 
 
 def square():
+    '''draws the numbers'''
     global INDEX
     for i in range(4):
         drawer.forward(WIDTH)
@@ -74,6 +77,7 @@ def square():
 
 
 def update_scores(value):
+    '''updates scores'''
     file2 = open(SCORES_FILE, "w")
     if value == 0:  # computer
         index = 0
@@ -90,6 +94,7 @@ def update_scores(value):
 
 
 def draw_scores():
+    '''draws the scores'''
     scorer.clear()
     index = 0
     scorer.goto(-OFFSET, OFFSET + WIDTH/6)
@@ -101,25 +106,27 @@ def draw_scores():
 
 
 def get_scores():
+    '''gets the scores from the txt'''
     file2 = open(SCORES_FILE, "r")
     for line in file2:
         name = ""
         score = ""
         index = 0
-        while (line[index] != ","):
+        while line[index] != ",":
             name = name + line[index]
             index = index + 1
         names.append(str(name))
-        while (line[index] == ","):
+        while line[index] == ",":
             index = index + 1
-        while (line[index] != "\n"):
+        while line[index] != "\n":
             score = score + line[index]
             index = index + 1
         scores.append(int(score))
     file2.close()
 
 
-def check_player(ind):  # checks who is playing that turn and then draws their corresponding shape
+def check_player(ind):
+    '''checks for X or O'''
     if PLAYER_TURN == 1:
         numlist[ind] = PLAYER_LETTER
         draw_shape(PLAYER_LETTER)
@@ -129,6 +136,7 @@ def check_player(ind):  # checks who is playing that turn and then draws their c
 
 
 def check(number):
+    '''checks for number input'''
     ind = int(number) - 1
     if number == "1":
         if numlist[ind] == "1":
@@ -169,6 +177,7 @@ def check(number):
 
 
 def check_and_send(number):
+    '''checks turn and ends turn'''
     def send():
         global PLAYER_TURN
         if PLAYER_TURN == 1:
@@ -192,6 +201,7 @@ def check_and_send(number):
 
 
 def check_win():
+    '''checks for win'''
     writer.clear()
     pencil.pensize(6)
     pencil.pencolor("black")
@@ -272,6 +282,7 @@ def check_win():
 
 
 def draw_shape(LETTER):
+    '''draws the X or O'''
     pencil.pensize(4)
     if LETTER == "x":
         pencil.pencolor("red")
@@ -287,7 +298,6 @@ def draw_shape(LETTER):
         wn.tracer(True)
         pencil.forward(X_LENGTH * 2)
         pencil.penup()
-    # o letter drawing
     if LETTER == "o":
         pencil.goto(pencil.xcor(), pencil.ycor()-WIDTH/6)
         pencil.pendown()
