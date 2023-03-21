@@ -44,14 +44,6 @@ R2 = -WIDTH*3/2+OFFSET
 R3 = -WIDTH*5/2+OFFSET
 
 
-def board():
-    '''draws board'''
-    for i in range(3):
-        tiles()
-    wn.update()
-    drawer.penup()
-
-
 def tiles():
     '''draws the tiles'''
     for i in range(3):
@@ -60,6 +52,14 @@ def tiles():
     drawer.penup()
     drawer.goto(x1, drawer.ycor()-WIDTH)
     drawer.pendown()
+
+
+def board():
+    '''draws board'''
+    for i in range(3):
+        tiles()
+    wn.update()
+    drawer.penup()
 
 
 def square():
@@ -74,6 +74,18 @@ def square():
     INDEX += 1
     drawer.goto(drawer.xcor()-WIDTH/15, drawer.ycor()+WIDTH/5.5)
     drawer.pendown()
+
+
+def draw_scores():
+    '''draws the scores'''
+    scorer.clear()
+    index = 0
+    scorer.goto(-OFFSET, OFFSET + WIDTH/6)
+    for i in range(len(scores)):
+        scorer.write(names[index] + ":" + str(scores[index]),
+                     font=("comic sans", 18, "normal"))
+        index += 1
+        scorer.goto(-OFFSET + WIDTH*2, scorer.ycor())
 
 
 def update_scores(value):
@@ -91,18 +103,6 @@ def update_scores(value):
             file2.write(names[index] + "," + str(scores[index]) + "\n")
     file2.close()
     draw_scores()
-
-
-def draw_scores():
-    '''draws the scores'''
-    scorer.clear()
-    index = 0
-    scorer.goto(-OFFSET, OFFSET + WIDTH/6)
-    for i in range(len(scores)):
-        scorer.write(names[index] + ":" + str(scores[index]),
-                     font=("comic sans", 18, "normal"))
-        index += 1
-        scorer.goto(-OFFSET + WIDTH*2, scorer.ycor())
 
 
 def get_scores():
@@ -174,30 +174,6 @@ def check(number):
         if numlist[ind] == "9":
             pencil.goto(C3, R3)
             check_player(ind)
-
-
-def check_and_send(number):
-    '''checks turn and ends turn'''
-    def send():
-        global PLAYER_TURN
-        if PLAYER_TURN == 1:
-            check(number)
-        elif PLAYER_TURN == 0:
-            numlist2 = []
-            for index in numlist:
-                if index != "x":
-                    if index != "o":
-                        numlist2.append(index)
-            ind1 = rand.randint(0, len(numlist2) - 1)
-            num = numlist2[ind1]
-            check(num)
-        pencil.goto(pencil_default)
-        check_win()
-        if PLAYER_TURN == 0:
-            PLAYER_TURN = 1
-        else:
-            PLAYER_TURN = 0
-    return send
 
 
 def check_win():
@@ -279,6 +255,30 @@ def check_win():
         update_scores(PLAYER_TURN)
     pencil.penup()
     pencil.goto(pencil_default)
+
+
+def check_and_send(number):
+    '''checks turn and ends turn'''
+    def send():
+        global PLAYER_TURN
+        if PLAYER_TURN == 1:
+            check(number)
+        elif PLAYER_TURN == 0:
+            numlist2 = []
+            for index in numlist:
+                if index != "x":
+                    if index != "o":
+                        numlist2.append(index)
+            ind1 = rand.randint(0, len(numlist2) - 1)
+            num = numlist2[ind1]
+            check(num)
+        pencil.goto(pencil_default)
+        check_win()
+        if PLAYER_TURN == 0:
+            PLAYER_TURN = 1
+        else:
+            PLAYER_TURN = 0
+    return send
 
 
 def draw_shape(LETTER):
