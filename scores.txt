@@ -1,2 +1,2 @@
 Computer,56
-Alex,23
+Player,23

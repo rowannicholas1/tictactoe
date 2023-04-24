@@ -3,7 +3,7 @@ import turtle as trtl
 import random as rand
 
 wn = trtl.Screen()
-wn.setup(width=0.5, height=0.8)
+wn.setup(900, 1100, 0, 0)
 wn.tracer(False)
 
 SCORES_FILE = "scores.txt"
@@ -13,6 +13,7 @@ scores = []
 
 drawer = trtl.Turtle()
 drawer.ht()
+drawer.speed(0)
 WIDTH = 150
 INDEX = 0
 numlist = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -27,10 +28,12 @@ drawer.pendown()
 
 scorer = trtl.Turtle()
 scorer.ht()
+scorer.speed(0)
 scorer.penup()
 
 writer = trtl.Turtle()
 writer.ht()
+writer.speed(0)
 writer.penup()
 writer.goto(-OFFSET, OFFSET)
 writer.goto(writer.xcor()+WIDTH*1.5, writer.ycor()-WIDTH*3.5)

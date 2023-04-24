@@ -2,14 +2,6 @@
 import turtle as trtl
 import random as rand
 
-# TODO: create list of availible spaces.
-# TODO: when the computer or player attempts to draw in a space,
-# TODO: program checks to see if that space is availible.
-# TODO: If availible, program draws.
-# TODO: If not, program tells plyaer to picl new space or computer will automtically pick a new space.
-
-# TODO: also add alex's scoreboard
-
 go_first = rand.randint(0, 1)
 if go_first == 0:
     print("computer will go first")
@@ -29,6 +21,7 @@ if x_o == 1:
     COMPUTER_LETTER = 1  #
 
 wn = trtl.Screen()
+# wn.setup(900, 1100, 0, 0)
 wn.tracer(False)
 
 board = trtl.Turtle()
@@ -97,8 +90,6 @@ def draw_x():
 def draw_o():
     '''draws an o'''
     pencil.circle(20)
-
-# TODO: add method to prevent player from spamming buttons to draw many shapes
 
 
 def keypress():
